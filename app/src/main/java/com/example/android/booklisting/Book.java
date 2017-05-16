@@ -7,27 +7,24 @@ import java.util.ArrayList;
  */
 
 public class Book {
+
     private String mThumbnail;
     private String mTitle;
     private ArrayList mAuthor;
     private String mPublisher;
     private String mPageCount;
+    private String mUrl;
 
-
-    public Book(String thumbnail, String title, ArrayList<String> author, String publisher, String pageCount) {
+    public Book(String thumbnail, String title, ArrayList<String> author, String publisher, String pageCount, String url) {
 
         mThumbnail = thumbnail;
         mTitle = title;
         mAuthor = author;
         mPublisher = publisher;
         mPageCount = pageCount;
+        mUrl = url;
     }
     public String getThumbnail(){return  mThumbnail;}
-
-
-    public void setThumbnail(String thumbnail) {
-        mThumbnail = thumbnail;
-    }
 
     public String getTitle() {
         return mTitle;
@@ -44,4 +41,5 @@ public class Book {
     public String getPageCount() {
         return mPageCount;
     }
+    public String getUrl(){return mUrl;}
 }

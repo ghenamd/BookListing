@@ -19,6 +19,7 @@ import java.util.ArrayList;
  */
 
 public class BookAdapter  extends ArrayAdapter<Book>{
+
     private final static String AUTHOR = "Author: ";
     private final static String PUBLISHER = "Publisher: ";
     private final static String PAGE_COUNT = "Page count: ";
@@ -30,7 +31,6 @@ public class BookAdapter  extends ArrayAdapter<Book>{
         // going to use this second argument, so it can be any value. Here, we used 0.
         super(context,0,books);
     }
-
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -43,10 +43,7 @@ public class BookAdapter  extends ArrayAdapter<Book>{
         ImageView thumbnail = (ImageView)bookList.findViewById(R.id.thumbnail);
         //we use Picasso Library to convert the url from JSONObject imageLinks to a image(@thumbnail)
         Picasso.with(getContext()).load(currentBook.getThumbnail()).into(thumbnail);
-        //If there is no Image for the specific book we set it with our own image
-        if (thumbnail == null){
 
-        }
 
         //We find the TextView book title in the list view
         TextView bookTitle = (TextView) bookList.findViewById(R.id.book_title);

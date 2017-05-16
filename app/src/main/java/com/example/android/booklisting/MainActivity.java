@@ -10,9 +10,8 @@ import android.widget.EditText;
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
-
     private EditText editText;
-    String bookTitle;
+    private String bookTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +19,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         button = (Button) findViewById(R.id.search_button);
         editText = (EditText) findViewById(R.id.search_title);
-
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -28,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(),Result.class);
                 intent.putExtra("TITLE",bookTitle);
                 startActivity(intent);
-
             }
         });
     }

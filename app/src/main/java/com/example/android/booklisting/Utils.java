@@ -25,8 +25,8 @@ import java.util.List;
 public final class Utils {
 
     private static final String LOG_TAG = Utils.class.getSimpleName();
-    private Utils() {
-    }
+
+    private Utils() {}
 
     public static List<Book> fetchBookList(String requestUrl) {
 
@@ -45,14 +45,12 @@ public final class Utils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
-
         // Extract relevant fields from the JSON response and create a list of {@link Book}s
         List<Book> books = extractFeatureFromJson(jsonResponse);
 
         // Return the list of {@link Book}s
         return books;
     }
-
     /**
      * Returns new URL object from the given string URL.
      */
@@ -65,7 +63,6 @@ public final class Utils {
         }
         return url;
     }
-
     /**
      * Make an HTTP request to the given URL and return a String as the response.
      */
@@ -76,7 +73,6 @@ public final class Utils {
         if (url == null) {
             return jsonResponse;
         }
-
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
         try {
@@ -106,7 +102,6 @@ public final class Utils {
         }
         return jsonResponse;
     }
-
     /**
      * Convert the {@link InputStream} into a String which contains the
      * whole JSON response from the server.
@@ -130,7 +125,6 @@ public final class Utils {
         if (TextUtils.isEmpty(bookJSON)) {
             return null;
         }
-
         // Create an empty ArrayList that we can start adding books to
         List<Book> books = new ArrayList<>();
 
@@ -164,7 +158,6 @@ public final class Utils {
                     thumbnail = imageLinks.getString("thumbnail");
                 }else {thumbnail = "No Image";}
 
-
                 // Extract the value for the key called "title"
                 String title = volumeInfo.getString("title");
                 // We create a new ArrayList
@@ -181,7 +174,6 @@ public final class Utils {
                 } else {
                     authors.add("No Author");
                 }
-
                 // Extract the value for the key called "publisher"
                 String publisher;
                 if (volumeInfo.has("publisher")) {
@@ -189,7 +181,6 @@ public final class Utils {
                 } else {
                     publisher = "No Publisher";
                 }
-
                 // Extract the value for the key called "pageCount"
                 String pageCount;
                 if (volumeInfo.has("pageCount")) {
@@ -197,22 +188,23 @@ public final class Utils {
                 } else {
                     pageCount = "No Page Number";
                 }
-
+                String url = null;
+                if (volumeInfo.has("infoLink")){
+                    url = volumeInfo.getString("infoLink");
+                }
                 // Create a new {@link Book} object with the thumbnail, title, author,publisher,pageCount
                 // and url from the JSON response.
-                Book book = new Book(thumbnail,title, authors, publisher, pageCount);
+                Book book = new Book(thumbnail,title, authors, publisher, pageCount,url);
 
                 // Add the new {@link book} to the list of books.
                 books.add(book);
             }
-
         } catch (JSONException e) {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
             Log.e(LOG_TAG, "Problem parsing the book JSON results", e);
         }
-
         // Return the list of books
         return books;
     }

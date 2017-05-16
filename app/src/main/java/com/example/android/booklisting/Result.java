@@ -1,13 +1,16 @@
 package com.example.android.booklisting;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,13 +56,21 @@ public class Result extends AppCompatActivity {
             progressBar.setVisibility(View.GONE);
             noInternet.setText(R.string.no_internet_connection);
         }
-
         mAdapter = new BookAdapter(this, new ArrayList<Book>());
         listView.setAdapter(mAdapter);
-
+        // OnItemClickListener will open the website for the specific place
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Book book = mAdapter.getItem(position);
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(book.getUrl()));
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
     }
-
-
     private class BookAsyncTask extends AsyncTask<String, Void, List<Book>> {
 
         @Override
