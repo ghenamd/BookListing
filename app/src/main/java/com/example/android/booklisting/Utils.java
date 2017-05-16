@@ -25,7 +25,6 @@ import java.util.List;
 public final class Utils {
 
     private static final String LOG_TAG = Utils.class.getSimpleName();
-
     private Utils() {
     }
 
@@ -157,6 +156,13 @@ public final class Utils {
                 // key called "volumeInfo", which represents a list of all properties
                 // for that book.
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
+                //Extract the imageLinks JSONObject
+                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+                String thumbnail;
+                if (imageLinks.has("thumbnail")){
+                    //Extract the url of the smallThumbnail
+                    thumbnail = imageLinks.getString("thumbnail");
+                }else {thumbnail = "No Image";}
 
 
                 // Extract the value for the key called "title"
@@ -164,25 +170,37 @@ public final class Utils {
                 // We create a new ArrayList
 
                 // Extract the value for the key called "authors"
-                JSONArray authorArray = volumeInfo.getJSONArray("authors");
-                String author = authorArray.getString(0);
+                JSONArray authorsArray;
+                ArrayList<String> authors = new ArrayList<>();
+
+                if (volumeInfo.has("authors")) {
+                    authorsArray = volumeInfo.getJSONArray("authors");
+                    for (int n=0; n < authorsArray.length(); n++) {
+                        authors.add(authorsArray.getString(n));
+                    }
+                } else {
+                    authors.add("No Author");
+                }
 
                 // Extract the value for the key called "publisher"
                 String publisher;
-                if (volumeInfo.has("publisher")){
+                if (volumeInfo.has("publisher")) {
                     publisher = volumeInfo.getString("publisher");
-                }else {
-                    publisher ="No publisher";}
+                } else {
+                    publisher = "No Publisher";
+                }
 
                 // Extract the value for the key called "pageCount"
                 String pageCount;
-                if (volumeInfo.has("pageCount")){
-                    pageCount =volumeInfo.getString("pageCount");
-                } else{pageCount ="No page number";}
+                if (volumeInfo.has("pageCount")) {
+                    pageCount = volumeInfo.getString("pageCount");
+                } else {
+                    pageCount = "No Page Number";
+                }
 
                 // Create a new {@link Book} object with the thumbnail, title, author,publisher,pageCount
                 // and url from the JSON response.
-                Book book = new Book(title, author, publisher, pageCount);
+                Book book = new Book(thumbnail,title, authors, publisher, pageCount);
 
                 // Add the new {@link book} to the list of books.
                 books.add(book);
@@ -192,7 +210,7 @@ public final class Utils {
             // If an error is thrown when executing any of the above statements in the "try" block,
             // catch the exception here, so the app doesn't crash. Print a log message
             // with the message from the exception.
-            Log.e(LOG_TAG, "Problem parsing the earthquake JSON results", e);
+            Log.e(LOG_TAG, "Problem parsing the book JSON results", e);
         }
 
         // Return the list of books

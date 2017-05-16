@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -36,6 +39,14 @@ public class BookAdapter  extends ArrayAdapter<Book>{
             bookList = LayoutInflater.from(getContext()).inflate(R.layout.book_listing_sample,parent,false);
         }
         Book currentBook = getItem(position);
+
+        ImageView thumbnail = (ImageView)bookList.findViewById(R.id.thumbnail);
+        //we use Picasso Library to convert the url from JSONObject imageLinks to a image(@thumbnail)
+        Picasso.with(getContext()).load(currentBook.getThumbnail()).into(thumbnail);
+        //If there is no Image for the specific book we set it with our own image
+        if (thumbnail == null){
+
+        }
 
         //We find the TextView book title in the list view
         TextView bookTitle = (TextView) bookList.findViewById(R.id.book_title);

@@ -29,7 +29,7 @@ public class Result extends AppCompatActivity {
         //We get the user input text
         String bookTitle = getIntent().getStringExtra("TITLE");
         //We set the maximum results to 5 books
-        String end = "&maxResults=5";
+        String end = "&maxResults=20";
         Log.e("TITLE OF THE BOOK IS: ",bookTitle);
         progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         noInternet = (TextView)findViewById(R.id.no_internet);

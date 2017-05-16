@@ -22,5 +22,6 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="@dimen/margin_search_button"
         android:text="@string/search_button"
-        android:background="@color/colorPrimary"/>
+        android:textColor="@color/white"
+        android:background="@drawable/my_button"/>
 </RelativeLayout>
