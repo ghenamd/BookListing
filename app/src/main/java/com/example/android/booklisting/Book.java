@@ -1,7 +1,5 @@
 package com.example.android.booklisting;
 
-import java.util.ArrayList;
-
 /**
  * Created by Ghena on 13/05/2017.
  */
@@ -10,12 +8,12 @@ public class Book {
 
     private String mThumbnail;
     private String mTitle;
-    private ArrayList mAuthor;
+    private StringBuilder mAuthor;
     private String mPublisher;
     private String mPageCount;
     private String mUrl;
 
-    public Book(String thumbnail, String title, ArrayList<String> author, String publisher, String pageCount, String url) {
+    public Book(String thumbnail, String title, StringBuilder author, String publisher, String pageCount, String url) {
 
         mThumbnail = thumbnail;
         mTitle = title;
@@ -30,7 +28,7 @@ public class Book {
         return mTitle;
     }
 
-    public ArrayList getAuthor() {
+    public StringBuilder getAuthor() {
         return mAuthor;
     }
 

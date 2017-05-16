@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/paddingLeft"
-            android:textColor="@color/title"
+            android:textColor="@color/author"
             android:textSize="@dimen/textSizeRest"
             tools:text="@string/author" />
 

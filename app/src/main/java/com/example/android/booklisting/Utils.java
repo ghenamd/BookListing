@@ -164,15 +164,15 @@ public final class Utils {
 
                 // Extract the value for the key called "authors"
                 JSONArray authorsArray;
-                ArrayList<String> authors = new ArrayList<>();
-
+                StringBuilder authors = new StringBuilder();
                 if (volumeInfo.has("authors")) {
                     authorsArray = volumeInfo.getJSONArray("authors");
                     for (int n=0; n < authorsArray.length(); n++) {
-                        authors.add(authorsArray.getString(n));
+                        authors.append(System.getProperty("line.separator"));
+                        authors.append(authorsArray.getString(n));
                     }
                 } else {
-                    authors.add("No Author");
+                    authors.append("No Author");
                 }
                 // Extract the value for the key called "publisher"
                 String publisher;
