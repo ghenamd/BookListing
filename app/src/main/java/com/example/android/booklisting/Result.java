@@ -94,11 +94,12 @@ public class Result extends AppCompatActivity {
             mAdapter.clear();
             progressBar.setVisibility(View.GONE);
 
-            // If there is a valid list of {@link Earthquake}s, then add them to the adapter's
+            // If there is a valid list of {@link Book}s, then add them to the adapter's
             // data set. This will trigger the ListView to update.
             if (data != null && !data.isEmpty()) {
                 mAdapter.addAll(data);
-            }
+                // If there is no information on a given book we set a text message to inform the user about it
+            }else{noInternet.setText(R.string.no_data_found);}
         }
     }
 }

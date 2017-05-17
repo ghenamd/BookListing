@@ -7,4 +7,5 @@
     <string name="page_count">Page count</string>
     <string name="type_title_here"> Title here</string>
     <string name="search_button">Search</string>
+    <string name="no_data_found">No data found</string>
 </resources>

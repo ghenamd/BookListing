@@ -23,7 +23,6 @@ public class BookAdapter  extends ArrayAdapter<Book>{
     private final static String AUTHOR = "Author: ";
     private final static String PUBLISHER = "Publisher: ";
     private final static String PAGE_COUNT = "Page count: ";
-
     public BookAdapter (Activity context, ArrayList<Book> books){
         // Here, we initialize the ArrayAdapter's internal storage for the context and the list.
         // the second argument is used when the ArrayAdapter is populating a single TextView.
@@ -31,36 +30,45 @@ public class BookAdapter  extends ArrayAdapter<Book>{
         // going to use this second argument, so it can be any value. Here, we used 0.
         super(context,0,books);
     }
+    private static class ViewHolder{
+        ImageView thumbnail;
+        TextView bookTitle;
+        TextView author;
+        TextView publisher;
+        TextView pageCount;
+    }
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        ViewHolder holder;
         View bookList = convertView;
         if (bookList == null){
             bookList = LayoutInflater.from(getContext()).inflate(R.layout.book_listing_sample,parent,false);
+            holder = new ViewHolder();
+            holder.thumbnail = (ImageView)bookList.findViewById(R.id.thumbnail);
+            holder.bookTitle = (TextView) bookList.findViewById(R.id.book_title);
+            holder.author = (TextView) bookList.findViewById(R.id.author);
+            holder.publisher = (TextView) bookList.findViewById(R.id.publisher);
+            holder.pageCount = (TextView) bookList.findViewById(R.id.page_count);
+            bookList.setTag(holder);
+        }else {
+            holder = (ViewHolder)bookList.getTag();
         }
         Book currentBook = getItem(position);
-
-        ImageView thumbnail = (ImageView)bookList.findViewById(R.id.thumbnail);
         //we use Picasso Library to convert the url from JSONObject imageLinks to a image(@thumbnail)
-        Picasso.with(getContext()).load(currentBook.getThumbnail()).into(thumbnail);
+        Picasso.with(getContext()).load(currentBook.getThumbnail()).into(holder.thumbnail);
 
-
-        //We find the TextView book title in the list view
-        TextView bookTitle = (TextView) bookList.findViewById(R.id.book_title);
         // We set the new value to the book title that is returned from the HTTP request
-        bookTitle.setText(currentBook.getTitle());
+        holder.bookTitle.setText(currentBook.getTitle());
 
-        // We find the TextView author of the book
-        TextView author = (TextView) bookList.findViewById(R.id.author);
         //We set the returned value from the HTTP request
-        author.setText(AUTHOR + currentBook.getAuthor());
+        holder.author.setText(AUTHOR + currentBook.getAuthor());
 
-        TextView publisher = (TextView) bookList.findViewById(R.id.publisher);
-        publisher.setText(PUBLISHER + currentBook.getPublisher());
+        holder.publisher.setText(PUBLISHER + currentBook.getPublisher());
 
-        TextView pageCount = (TextView) bookList.findViewById(R.id.page_count);
-        pageCount.setText(PAGE_COUNT + currentBook.getPageCount());
+        holder.pageCount.setText(PAGE_COUNT + currentBook.getPageCount());
 
         return bookList;
     }
+
 }
